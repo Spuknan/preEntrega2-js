@@ -128,7 +128,8 @@ function personalInfo() {
 function membershipInfo() {
    alert (
       "ID del cliente: " + promptId +
-      "\nMembresía activa: " + clientId.membership
+      "\nMembresía activa: " + clientId.membership +
+      "\n\n ALERT A ACTUALIZAR"
    )
    menu();
 };
@@ -137,7 +138,8 @@ function membershipInfo() {
 function membershipRenovation() {
    alert (
       "ID del cliente: " + promptId +
-      "\nFecha de renovación: "
+      "\nFecha de renovación: " +
+      "\n\n ALERT A ACTUALIZAR"
    )
    menu();
 };
@@ -152,6 +154,6 @@ switch (option) {
    case 3:
       membershipRenovation();
    default:
-      alert("Elija una oppción correcta");
+      alert("Elija una opción correcta");
       menu();
 }
