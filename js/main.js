@@ -12,18 +12,14 @@
 /* MEMBRESÍAS GIMNASIO */
 
 // El simulador debe entregarme:
-// Información básica del cliente.
-// Información sobre la membresía.
-// Estado de la membresía.
-// Tipo de membresía activa.
-// Fecha de renovación.
-// Precio según tipo de membresía a renovar.
-// Nueva fecha de renovación.
+   // Información básica del cliente.
+   // Información sobre la membresía.
+   // Estado de la membresía.
+   // Tipo de membresía activa.
+   // Fecha de renovación.
+   // Precio según tipo de membresía a renovar.
+   // Nueva fecha de renovación.
 //
-
-
-const hoy = new Date();
-
 
 // Clientes
 class Client {
