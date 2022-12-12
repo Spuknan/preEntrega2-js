@@ -1,1 +1,76 @@
-/*# sourceMappingURL=main.css.map */
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700;900&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Montserrat", sans-serif;
+}
+
+.verificacion__container {
+  min-height: 100vh;
+  width: 100%;
+  background: rgb(64, 35, 121);
+  background: linear-gradient(142deg, rgb(64, 35, 121) 0%, rgb(85, 146, 209) 100%);
+  padding: 3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.verificacion__container .card {
+  border-radius: 15px;
+  max-width: 600px;
+  width: 100%;
+  background: #f8f8f8;
+  padding: 2rem;
+  box-shadow: 10px 10px 19px 0px rgba(0, 0, 0, 0.3);
+  -webkit-box-shadow: 10px 10px 19px 0px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 10px 10px 19px 0px rgba(0, 0, 0, 0.3);
+}
+.verificacion__container .card .title {
+  text-align: center;
+  font-weight: 700;
+}
+.verificacion__container .card .title h1 {
+  font-weight: 600;
+  margin-bottom: 2rem;
+}
+.verificacion__container .card .container--inputs .input__group {
+  margin-bottom: 2rem;
+  display: flex;
+  flex-direction: column;
+}
+.verificacion__container .card .container--inputs .input__group input {
+  border: none;
+  background: none;
+  padding: 0.4rem;
+  border-radius: 5px;
+  box-shadow: 2px 2px 8px 0px rgba(0, 0, 0, 0.3) inset;
+  -webkit-box-shadow: 2px 2px 8px 0px rgba(0, 0, 0, 0.3) inset;
+  -moz-box-shadow: 2px 2px 8px 0px rgba(0, 0, 0, 0.3) inset;
+}
+.verificacion__container .card .button__signin {
+  width: 50%;
+  margin: auto;
+}
+.verificacion__container .card .button__signin .btn {
+  width: 100%;
+}
+@media (max-width: 360px) {
+  .verificacion__container .card h1 {
+    font-size: 1rem;
+  }
+  .verificacion__container .card label {
+    font-size: 0.8rem;
+  }
+  .verificacion__container .card .button__signin {
+    font-size: 0.8rem;
+    width: 100%;
+  }
+}
+.verificacion__container .button__next {
+  padding: 2rem;
+}
+.verificacion__container .button__next .btn {
+  font-size: 0.8rem;
+}/*# sourceMappingURL=main.css.map */
