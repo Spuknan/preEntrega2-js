@@ -1,123 +1,138 @@
-
-
-
 // Clase clientes.
 class Client {
-   constructor(id, name, surname, dni, birthDate, membership, lastPayment) {
+   constructor(id, name, lastName, dni, birthDate, membership, lastPayment) {
       this.id = id;
       this.name = name;
-      this.surname = surname;
+      this.lastName = lastName;
       this.dni = dni;
-      this.birthDate = birthDate || new Date();
+      this.birthDate = birthDate;
       this.membership = membership;
-      this.lastPayment = lastPayment || new Date();
+      this.lastPayment = lastPayment;
    }
 }
+const clientArray = [
+   new Client("1", "Hernán", "Rojas", "39.430.811", "February 7, 1996", 1, "December 5, 2022"),
+   new Client("2", "Lucas", "Blautzik", "38.698.553", "September 11, 1995", 2, "March 2, 2022"),
+   new Client("3", "Jose Luis", "Inturri", "24.125.961", "December 12, 1965", 0, "November 12, 2022"),
+   new Client("4", "Micaela", "Thomas", "38.367.173", "September 10, 1995", 3, "December 6, 2022"),
+];
 
-const client00 = new Client("00", "Hernán", "Rojas", "39.430.811", "February 7, 1996", 1, "December 5, 2022");
-const client01 = new Client("01", "Lucas", "Blautzik", "38.698.553", "September 11, 1995", 2, "March 2, 2022");
-const client02 = new Client("02", "Jose Luis", "Inturri", "24.125.961", "December 12, 1985", 0, "November 22, 2022");
-const client03 = new Client("03", "Micaela", "Thomas", "38.367.173", "September 10, 1995", 1, "December 6, 2022");
+// Clase membresías.
+class Membership {
+   constructor(level, name, months, price) {
+      this.level = level;
+      this.name = name;
+      this.months = months;
+      this.price = price;
+   }
+}
+const membershipArray = [
+   new Membership(0, "Suscripción inactiva", 0, 0),
+   new Membership(1, "Suscripción Silver (Mensual)", 1, 4500),
+   new Membership(2, "Suscripción Gold (Trimestral)", 3, 12500),
+   new Membership(3, "Suscripción Platinum (Anual)", 12, 35000),
+];
 
-let clientArray = [client00, client01, client02, client03];
-
-
-// Usuario de administrador.
-const adminNameAuth = "admin";
-const adminPassAuth = "1234";
-
-// Login.
-const userName = prompt("Por favor, ingrese su usuario.");
-const userPassword = prompt("Por favor, ingrese su contraseña.");
-
-// Funcion de verificación.
-let loginAttempts = 0;
-function loginCheck(userName, userPassword) {
-   if (userName === adminNameAuth && userPassword === adminPassAuth) {
-      alert("Credenciales correctas. Bienvenido " + userName + "!");
-      return true;
+// Funcion membresía activa.
+function isMembershipActive(clientIndex) {
+   const today = new Date();
+   const lastPayment = new Date(clientArray[clientIndex].lastPayment);
+   const months = membershipArray[clientArray[clientIndex].membership].months;
+   const membershipIsActive = (today - lastPayment) / (1000 * 60 * 60 * 24 * 30) < months;
+   if (membershipIsActive) {
+      alert(
+         "El cliente " + clientArray[clientIndex].name + " " + clientArray[clientIndex].lastName + " tiene una suscripción " + membershipArray[clientArray[clientIndex].membership].name + " activa!"
+      )
    } else {
-      loginAttempts++;
-      if (loginAttempts < 3) {
-         alert("Credenciales incorrectas. Intente nuevamente.");
-         userName = prompt("Por favor, ingrese su usuario.");
-         userPassword = prompt("Por favor, ingrese su contraseña.");
-         loginCheck(userName, userPassword);
-      } else {
-         alert("Demasiados intentos fallidos. Intente nuevamente mas tarde.");
-      }
-
-      console.log("Credenciales incorrectas: ");
-      return false;
+      alert(
+         "El cliente " + clientArray[clientIndex].name + " " + clientArray[clientIndex].lastName + " no tiene una suscripción activa."
+      )
    }
 }
 
-// Funcion para pedir ID y verificar si existe.
-function askForClientId() {
-   let selectedClientId = prompt("Por favor, ingrese el ID del cliente.");
-   return selectedClientId;
-};
+
+// Funcion calcular edad.
+function getEdad(dateString) {
+   let today = new Date()
+   let birthDate = new Date(dateString)
+   let age = today.getFullYear() - birthDate.getFullYear()
+   let diferenciaMeses = today.getMonth() - birthDate.getMonth()
+   if (diferenciaMeses < 0 || (diferenciaMeses === 0 && today.getDate() < birthDate.getDate())) {
+      age--
+   }
+   return age
+}
 
 
-function checkId(id) {
-   for (let i = 0; i < clientArray.length; i++) {
-      if (clientArray[i].id == id) {
+// Usuario de administrador habilitado.
+const adminAuthName = 'admin';
+const adminAuthPass = '1234';
+
+// Pidiendo datos de sesión.
+const userName = prompt("Ingrese su nombre de usuario.");
+const userPassword = prompt("Ingrese su contraseña.");
+
+// Chequeo de credenciales.
+function checkAuth(userName, userPassword) {
+   let counter = 0;
+   while (counter < 3) {
+      if (userName === adminAuthName && userPassword === adminAuthPass) {
          return true;
       } else {
-         return false;
+         counter++;
+         userName = prompt("Ingrese su nombre de usuario.");
+         userPassword = prompt("Ingrese su contraseña.");
       }
    }
-};
+   return false;
+}
 
-// Funcion menu.
-function menu() {
-   let selectedMenu = prompt(
-      "Elija la opción que desee revisar." + "\n" +
-      "\n   1) Información personal del cliente." +
-      "\n   2) Información sobre la membresía vigente." +
-      "\n   3) Información sobre la renovación de la membresía."
+// Solicitando y verificando el ID del cliente buscado.
+if (checkAuth(userName, userPassword)) {
+   let clientId = prompt("Ingrese el ID buscado");
+   let clientIndex = clientArray.findIndex(client => client.id == clientId);
+   while (clientIndex === -1) {
+      alert("No se encuentra el ID buscado, intentelo nuevamente.");
+      clientId = prompt("Ingrese el ID buscado.");
+      clientIndex = clientArray.findIndex(client => client.id == clientId);
+   }
+   menu(clientIndex);
+} else {
+   alert("Ha superado el límite de intentos, intentelo más tarde.");
+}
+
+
+
+// Menu.
+function menu(clientIndex) {
+   let option = prompt(
+      '1. ID\n2. Información personal\n3. Estado de su membresía.\n4. Próxima fecha de renovacion.\n5. Salir'
    );
-   return selectedMenu;
-};
-
-// Informacion personal.
-function menuPersonalInfo() {
-   alert("opcion 1");
-};
-
-// Información sobre la membresía vigente.
-function menuActiveMembership() {
-   alert("opcion 2");
-};
-
-// Informacion sobre la renovación de la membresía.
-function menuMembershipRenew() {
-   alert("opcion 3");
-};
-
-
-
-// Ejecutando el programa.
-let isLoginValid = loginCheck(userName, userPassword);
-console.log("Credenciales correctas: " + isLoginValid);
-// isLoginValid entrega true o false.
-
-
-if (isLoginValid == true) {
-   let selectedClientId = askForClientId();
-   console.log("El ID ingresado es: " + selectedClientId);
-
-   let isIdValid = checkId(selectedClientId);
-   console.log(isIdValid);
-   // Devuelve por consola si isIdValid es true o false.
-
-   if (isIdValid) {
-      let selectedMenu = menu();
-   } else {
-      while (isIdValid == false) {
-         alert("El cliente no se encuentra registrado.");
-         console.log("id incorrecto, reintentando...");
-         let selectedClientId = askForClientId();
-      };
-   };
+   while (option !== '5') {
+      switch (option) {
+         case '1':
+            alert("el ID de este cliente es: " + clientArray[clientIndex].id + "\n")
+            break;
+         case '2':
+            alert(
+               "Nombre: " + clientArray[clientIndex].name + " " + clientArray[clientIndex].lastName + "\n" +
+               "Fecha de nacimiento: " + clientArray[clientIndex].birthDate + "\n" +
+               "Edad: " + getEdad(clientArray[clientIndex].birthDate) + "\n" +
+               "DNI: " + clientArray[clientIndex].dni + "\n"
+            );
+            break;
+         case '3':
+            isMembershipActive(clientIndex);
+            break;
+         case '4':
+            alert("En proceso.");
+            break;
+         default:
+            alert("Opción incorrecta.");
+            break;
+      }
+      option = prompt(
+         '1. ID\n2. Información personal\n3. Estado de su membresía.\n4. Próxima fecha de renovacion.\n5. Salir'
+      );
+   }
 }
