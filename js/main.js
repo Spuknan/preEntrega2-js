@@ -1,159 +1,94 @@
-/* CONCEPTOS A ABORDAR */
 
-// ESTRUCTURA, VARIABLES Y OBJETOS //
 
-// Estructura HTML
-// Variables
-// Funciones
-// Objetos
-// Arrays
-// Metodos de busqueda y filtrado sobre el array
 
-/* MEMBRESÍAS GIMNASIO */
-
-// El simulador debe entregarme:
-   // Información básica del cliente.
-   // Información sobre la membresía.
-   // Estado de la membresía.
-   // Tipo de membresía activa.
-   // Fecha de renovación.
-   // Precio según tipo de membresía a renovar.
-   // Nueva fecha de renovación.
-//
-
-// Clientes
+// Clase clientes.
 class Client {
-   constructor(id, name, surname, birthDate, membership, lastPayment) {
+   constructor(id, name, surname, dni, birthDate, membership, lastPayment) {
       this.id = id;
       this.name = name;
       this.surname = surname;
+      this.dni = dni;
       this.birthDate = birthDate || new Date();
       this.membership = membership;
       this.lastPayment = lastPayment || new Date();
    }
 }
 
-const client00 = new Client("00", "Hernán", "Rojas", "February 7, 1996", 1, "December 5, 2022");
-const client01 = new Client("01", "Lucas", "Blautzik", "September 11, 1995", 2, "March 2, 2022");
-const client02 = new Client("02", "Jose Luis", "Inturri", "December 12, 1985", 0, "November 22, 2022");
-const client03 = new Client("03", "Micaela", "Thomas", "September 10, 1995", 1, "December 6, 2022");
+const client00 = new Client("00", "Hernán", "Rojas", "39.430.811", "February 7, 1996", 1, "December 5, 2022");
+const client01 = new Client("01", "Lucas", "Blautzik", "38.698.553", "September 11, 1995", 2, "March 2, 2022");
+const client02 = new Client("02", "Jose Luis", "Inturri", "24.125.961", "December 12, 1985", 0, "November 22, 2022");
+const client03 = new Client("03", "Micaela", "Thomas", "38.367.173", "September 10, 1995", 1, "December 6, 2022");
 
 let clientsArray = [client00, client01, client02, client03];
 
 
-// Membresías
-class Membership {
-   constructor(id, name, description, duration, price) {
-      this.id = id;
-      this.name = name;
-      this.description = description;
-      this.duration = duration;
-      this.price = price;
-   }
-}
-
-const membershipNull = new Membership(0, "Inactiva", "No ha sido dado de alta", "No aplica", 0);
-const membershipSilver = new Membership(1, "Silver", "Membresía mensual", "Un mes", 4500);
-const membershipGold = new Membership(2, "Gold", "Membresía trimestral", "Tres meses", 12500);
-const membershipPlatinum = new Membership(3, "Platinum", "Membrecía anual", "Un año", 45000);
-const arrayMembership = [membershipNull, membershipSilver, membershipGold, membershipPlatinum];
-
-
-// Verificación.
-let adminName = prompt("Ingrese su usuario de administrador.");
-let adminPass = prompt("Ingrese su contraseña de admisitrador.");
-
+// Usuario de administrador.
 const adminNameAuth = "admin";
 const adminPassAuth = "1234";
 
-for (i = 0; i < 3; i++) {
-   if (adminName === adminNameAuth && adminPass === adminPassAuth) {
-      alert("Usuario autorizado." + "\nBienvenidx.")
-      break;
-   } else if (i < 2) {
-      alert("Credenciales incorrectas, intente nuevamente." + "\n 2/3");
-      adminName = prompt("Ingrese  su usuario de administrador.");
-      adminPass = prompt("Ingrese su contraseña de administrador.");
-      if (adminName === adminNameAuth && adminPass === adminPassAuth) {
-         alert("Usuario autorizado." + "\nBienvenidx.");
-         break;
+// Login.
+const userName = prompt("Por favor, ingrese su usuario.");
+const userPassword = prompt("Por favor, ingrese su contraseña.");
+
+// Funcion de verificación.
+let loginAttempts = 0;
+function loginCheck(userName, userPassword) {
+   if (userName === adminNameAuth && userPassword === adminPassAuth) {
+      alert("Credenciales correctas. Bienvenido " + userName + "!");
+   } else {
+      loginAttempts++;
+      if (loginAttempts < 3) {
+         alert("Credenciales incorrectas. Intente nuevamente.");
+         userName = prompt("Por favor, ingrese su usuario.");
+         userPassword = prompt("Por favor, ingrese su contraseña.");
+         loginCheck(userName, userPassword);
+      } else {
+         alert("Demasiados intentos fallidos. Intente nuevamente mas tarde.");
+         return false;
       }
-   } else if (i === 2) {
-      alert("Usuario bloqueado. Ha superado el limite de intentos." + "\n 3/3");
    }
-};
+}
 
+// Funcion para pedir ID.
+function askForClientId() {
+   let selectedClientId = prompt("Por favor, ingrese el ID del cliente.");
+   return selectedClientId;
+}
 
-
-// Ingresar ID.
-let promptId = prompt("Por favor ingrese el ID del cliente.");
-
-// Check ID.
-function checkId(id) {
+// Funcion para verificar si el ID corresponde a un cliente activo.
+function checkClientId(selectedClientId) {
    for (var i = 0; i < clientsArray.length; i++) {
-      if (clientsArray[i].id == id) {
-         return clientsArray[i];
+      if (clientsArray[i].id === selectedClientId) {
+         return true;
       }
    }
-}
+   return false;
+};
 
-// Buscando el array del ID.
-let clientId = checkId(promptId);
-
-// Menu de selección.
+// Funcion menu.
 function menu() {
-   let option = parseInt (
-      prompt(
-      "Por favor, ingrese la opción que desea revisar:" + 
-      "\n" + 
-      "\n   1) Datos personales del cliente." +
-      "\n   2) Datos de la membresía." +
-      "\n   3) Fecha de renovación." + "\n"
-      )
+   prompt(
+      "Elija la opción que desee revisar." + "\n" +
+      "\n   1) Información personal del cliente." +
+      "\n   2) Información sobre la membresía vigente." +
+      "\n   3) Información sobre la renovación de la membresía."
    );
-   return option;
-}
-
-// Función para datos personales.
-function personalInfo() {
-   alert (
-   "ID del cliente: " + promptId +
-   "\nNombre: " + clientId.name + " " + clientId.surname +
-   "\n"
-   )
-   menu();
 };
 
-// Función para datos de membresía.
-function membershipInfo() {
-   alert (
-      "ID del cliente: " + promptId +
-      "\nMembresía activa: " + clientId.membership +
-      "\n\n ALERT A ACTUALIZAR"
-   )
-   menu();
-};
 
-// Función para fecha de renovación.
-function membershipRenovation() {
-   alert (
-      "ID del cliente: " + promptId +
-      "\nFecha de renovación: " +
-      "\n\n ALERT A ACTUALIZAR"
-   )
-   menu();
-};
+// Llamando a las funciones.
+loginCheck(userName, userPassword);
+console.log(loginCheck());
 
-// Llamando a la acción del menu.
-let option = menu();
-switch (option) {
-   case 1:
-      personalInfo();
-   case 2:
-      membershipInfo();
-   case 3:
-      membershipRenovation();
-   default:
-      alert("Elija una opción correcta");
-      menu();
-}
+let selectedClientId = askForClientId();
+console.log(selectedClientId);
+
+let isItValid = checkClientId(selectedClientId);
+console.log(isItValid);
+
+if (isItValid) {
+   menu();
+} else {
+   alert("El cliente no se encuentra registrado. Por favor ingrese otro ID.");
+   askForClientId();
+};

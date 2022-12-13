@@ -1,0 +1,82 @@
+.verificacion__container {
+   min-height: 100vh;
+   width: 100%;
+   background: rgb(64,35,121);
+   background: linear-gradient(142deg, rgba(64,35,121,1) 0%, rgba(85,146,209,1) 100%);
+   padding: 3rem;
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+
+   .card {
+      border-radius: 15px;
+      max-width: 600px;
+      width:100%;
+      background: $color-light;
+      padding: 2rem;
+      box-shadow: 10px 10px 19px 0px rgba(0,0,0,0.3);
+      -webkit-box-shadow: 10px 10px 19px 0px rgba(0,0,0,0.3);
+      -moz-box-shadow: 10px 10px 19px 0px rgba(0,0,0,0.3);
+
+      .title {
+         text-align: center;
+         font-weight: 700;
+
+         h1 {
+            font-weight: 600;
+            margin-bottom: 2rem;
+         }
+      }
+
+      .container--inputs {
+         .input__group {
+            margin-bottom: 2rem;
+            display: flex;
+            flex-direction: column;
+
+            input {
+               border: none;
+               background: none;
+               padding: 0.4rem;
+               border-radius: 5px;
+               box-shadow: 2px 2px 8px 0px rgba(0,0,0,0.3) inset;
+               -webkit-box-shadow: 2px 2px 8px 0px rgba(0,0,0,0.3) inset;
+               -moz-box-shadow: 2px 2px 8px 0px rgba(0,0,0,0.3) inset;
+            }
+         }
+      }
+
+      .button__signin {
+         width: 50%;
+         margin: auto;
+
+         .btn {
+            width: 100%;
+         }
+      }
+
+      @media (max-width: 360px) {
+         h1 {
+            font-size: 1rem;
+         }
+
+         label {
+            font-size: 0.8rem;
+         }
+
+         .button__signin {
+            font-size: 0.8rem;
+            width: 100%;
+         }
+      }
+   }
+
+   .button__next {
+      padding: 2rem;
+
+      .btn {
+         font-size: 0.8rem;
+      }
+   }
+}

@@ -73,4 +73,40 @@
 }
 .verificacion__container .button__next .btn {
   font-size: 0.8rem;
+}
+
+.cpanel__fullcontainer {
+  width: 100%;
+  height: 100vh;
+  background: rgb(64, 35, 121);
+  background: linear-gradient(142deg, rgb(64, 35, 121) 0%, rgb(85, 146, 209) 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.cpanel__fullcontainer .front__card {
+  display: flex;
+  flex-direction: column;
+  background: #f8f8f8;
+  width: 100%;
+  height: 93vh;
+  padding: 20px 10px;
+  border-radius: 15px;
+  box-shadow: 10px 10px 19px 0px rgba(0, 0, 0, 0.3);
+  -webkit-box-shadow: 10px 10px 19px 0px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 10px 10px 19px 0px rgba(0, 0, 0, 0.3);
+}
+.cpanel__fullcontainer .front__card .user__data {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  border: 1px solid black;
+  border-radius: 5px;
+}
+.cpanel__fullcontainer .front__card .user__data p {
+  margin: 0;
+}
+.cpanel__fullcontainer .front__card .user__data i {
+  align-self: center;
+  margin-right: 10px;
 }/*# sourceMappingURL=main.css.map */
