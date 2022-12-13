@@ -46,9 +46,11 @@ function loginCheck(userName, userPassword) {
       } else {
          alert("Demasiados intentos fallidos. Intente nuevamente mas tarde.");
       }
+
+      console.log("Credenciales incorrectas: ");
+      return false;
    }
 }
-
 
 // Funcion para pedir ID y verificar si existe.
 function askForClientId() {
@@ -62,7 +64,7 @@ function checkId(id) {
       if (clientArray[i].id == id) {
          return true;
       } else {
-         askForClientId();
+         return false;
       }
    }
 };
@@ -98,28 +100,24 @@ function menuMembershipRenew() {
 // Ejecutando el programa.
 let isLoginValid = loginCheck(userName, userPassword);
 console.log("Credenciales correctas: " + isLoginValid);
+// isLoginValid entrega true o false.
 
-if (isLoginValid = true) {
+
+if (isLoginValid == true) {
    let selectedClientId = askForClientId();
-   console.log("El ID seleccionado es: " + selectedClientId);
+   console.log("El ID ingresado es: " + selectedClientId);
+
    let isIdValid = checkId(selectedClientId);
-   console.log("El ID es valido: " + isIdValid);
+   console.log(isIdValid);
+   // Devuelve por consola si isIdValid es true o false.
+
+   if (isIdValid) {
+      let selectedMenu = menu();
+   } else {
+      while (isIdValid == false) {
+         alert("El cliente no se encuentra registrado.");
+         console.log("id incorrecto, reintentando...");
+         let selectedClientId = askForClientId();
+      };
+   };
 }
-
-if (isIdValid = true) {
-   let selectedMenu = menu();
-   console.log("La opcion seleccionada es: " + selectedMenu);
-};
-
-
-
-console.log("La opcion seleccionada es: " + selectedMenu);
-
-
-
-
-
-
-
-
-

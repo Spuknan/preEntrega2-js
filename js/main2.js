@@ -12,13 +12,13 @@
 /* MEMBRESÍAS GIMNASIO */
 
 // El simulador debe entregarme:
-   // Información básica del cliente.
-   // Información sobre la membresía.
-   // Estado de la membresía.
-   // Tipo de membresía activa.
-   // Fecha de renovación.
-   // Precio según tipo de membresía a renovar.
-   // Nueva fecha de renovación.
+// Información básica del cliente.
+// Información sobre la membresía.
+// Estado de la membresía.
+// Tipo de membresía activa.
+// Fecha de renovación.
+// Precio según tipo de membresía a renovar.
+// Nueva fecha de renovación.
 //
 
 // Clientes
@@ -102,13 +102,13 @@ let clientId = checkId(promptId);
 
 // Menu de selección.
 function menu() {
-   let option = parseInt (
+   let option = parseInt(
       prompt(
-      "Por favor, ingrese la opción que desea revisar:" + 
-      "\n" + 
-      "\n   1) Datos personales del cliente." +
-      "\n   2) Datos de la membresía." +
-      "\n   3) Fecha de renovación." + "\n"
+         "Por favor, ingrese la opción que desea revisar:" +
+         "\n" +
+         "\n   1) Datos personales del cliente." +
+         "\n   2) Datos de la membresía." +
+         "\n   3) Fecha de renovación." + "\n"
       )
    );
 
@@ -131,17 +131,17 @@ function menu() {
 
 // Función para datos personales.
 function personalInfo() {
-   alert (
-   "ID del cliente: " + promptId +
-   "\nNombre: " + clientId.name + " " + clientId.surname +
-   "\n"
+   alert(
+      "ID del cliente: " + promptId +
+      "\nNombre: " + clientId.name + " " + clientId.surname +
+      "\n"
    )
    menu();
 };
 
 // Función para datos de membresía.
 function membershipInfo() {
-   alert (
+   alert(
       "ID del cliente: " + promptId +
       "\nMembresía activa: " + clientId.membership +
       "\n\n ALERT A ACTUALIZAR"
@@ -151,10 +151,84 @@ function membershipInfo() {
 
 // Función para fecha de renovación.
 function membershipRenovation() {
-   alert (
+   alert(
       "ID del cliente: " + promptId +
       "\nFecha de renovación: " +
       "\n\n ALERT A ACTUALIZAR"
    )
    menu();
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Funcion de verificación.
+let loginAttempts = 0;
+function loginCheck(userName, userPassword) {
+   if (userName === adminNameAuth && userPassword === adminPassAuth) {
+      alert("Credenciales correctas. Bienvenido " + userName + "!");
+      return true;
+   } else {
+      loginAttempts++;
+      if (loginAttempts < 3) {
+         alert("Credenciales incorrectas. Intente nuevamente.");
+         userName = prompt("Por favor, ingrese su usuario.");
+         userPassword = prompt("Por favor, ingrese su contraseña.");
+         loginCheck(userName, userPassword);
+      } else {
+         alert("Demasiados intentos fallidos. Intente nuevamente mas tarde.");
+         return false;
+      }
+   }
+}
+
+// Funciones para pedir ID y verificar si existe.
+function askForClientId() {
+   let askForClientId = prompt("Por favor, ingrese el ID del cliente.");
+   return askForClientId;
+};
+
+function checkId(id) {
+   for (let i = 0; i < clientArray.length; i++) {
+      if (clientArray[i].id == id) {
+         return true;
+      } else {
+         return false;
+      }
+   }
+};
+
+// Funcion menu.
+function menu() {
+   let selectedMenu = prompt(
+      "Elija la opción que desee revisar." + "\n" +
+      "\n   1) Información personal del cliente." +
+      "\n   2) Información sobre la membresía vigente." +
+      "\n   3) Información sobre la renovación de la membresía."
+   );
+   return selectedMenu;
+};
+
+// Informacion personal.
+function menuPersonalInfo() {
+   alert("opcion 1");
+};
+
+// Información sobre la membresía vigente.
+function menuActiveMembership() {
+   alert("opcion 2");
+};
+
+// Informacion sobre la renovación de la membresía.
+function menuMembershipRenew() {
+   alert("opcion 3");
 };
