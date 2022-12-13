@@ -19,7 +19,7 @@ const client01 = new Client("01", "Lucas", "Blautzik", "38.698.553", "September 
 const client02 = new Client("02", "Jose Luis", "Inturri", "24.125.961", "December 12, 1985", 0, "November 22, 2022");
 const client03 = new Client("03", "Micaela", "Thomas", "38.367.173", "September 10, 1995", 1, "December 6, 2022");
 
-let clientsArray = [client00, client01, client02, client03];
+let clientArray = [client00, client01, client02, client03];
 
 
 // Usuario de administrador.
@@ -35,6 +35,7 @@ let loginAttempts = 0;
 function loginCheck(userName, userPassword) {
    if (userName === adminNameAuth && userPassword === adminPassAuth) {
       alert("Credenciales correctas. Bienvenido " + userName + "!");
+      return true;
    } else {
       loginAttempts++;
       if (loginAttempts < 3) {
@@ -44,51 +45,81 @@ function loginCheck(userName, userPassword) {
          loginCheck(userName, userPassword);
       } else {
          alert("Demasiados intentos fallidos. Intente nuevamente mas tarde.");
-         return false;
       }
    }
 }
 
-// Funcion para pedir ID.
+
+// Funcion para pedir ID y verificar si existe.
 function askForClientId() {
    let selectedClientId = prompt("Por favor, ingrese el ID del cliente.");
    return selectedClientId;
-}
+};
 
-// Funcion para verificar si el ID corresponde a un cliente activo.
-function checkClientId(selectedClientId) {
-   for (var i = 0; i < clientsArray.length; i++) {
-      if (clientsArray[i].id === selectedClientId) {
+
+function checkId(id) {
+   for (let i = 0; i < clientArray.length; i++) {
+      if (clientArray[i].id == id) {
          return true;
+      } else {
+         askForClientId();
       }
    }
-   return false;
 };
 
 // Funcion menu.
 function menu() {
-   prompt(
+   let selectedMenu = prompt(
       "Elija la opción que desee revisar." + "\n" +
       "\n   1) Información personal del cliente." +
       "\n   2) Información sobre la membresía vigente." +
       "\n   3) Información sobre la renovación de la membresía."
    );
+   return selectedMenu;
+};
+
+// Informacion personal.
+function menuPersonalInfo() {
+   alert("opcion 1");
+};
+
+// Información sobre la membresía vigente.
+function menuActiveMembership() {
+   alert("opcion 2");
+};
+
+// Informacion sobre la renovación de la membresía.
+function menuMembershipRenew() {
+   alert("opcion 3");
 };
 
 
-// Llamando a las funciones.
-loginCheck(userName, userPassword);
-console.log(loginCheck());
 
-let selectedClientId = askForClientId();
-console.log(selectedClientId);
+// Ejecutando el programa.
+let isLoginValid = loginCheck(userName, userPassword);
+console.log("Credenciales correctas: " + isLoginValid);
 
-let isItValid = checkClientId(selectedClientId);
-console.log(isItValid);
+if (isLoginValid = true) {
+   let selectedClientId = askForClientId();
+   console.log("El ID seleccionado es: " + selectedClientId);
+   let isIdValid = checkId(selectedClientId);
+   console.log("El ID es valido: " + isIdValid);
+}
 
-if (isItValid) {
-   menu();
-} else {
-   alert("El cliente no se encuentra registrado. Por favor ingrese otro ID.");
-   askForClientId();
+if (isIdValid = true) {
+   let selectedMenu = menu();
+   console.log("La opcion seleccionada es: " + selectedMenu);
 };
+
+
+
+console.log("La opcion seleccionada es: " + selectedMenu);
+
+
+
+
+
+
+
+
+
